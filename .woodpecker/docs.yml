@@ -34,6 +34,6 @@ pipeline:
       - test -n "$(git status --porcelain)" || echo "no change" && exit 0
       - git commit -m "Deploy website - based on ${DRONE_COMMIT_SHA}"
       - echo git push
-      - git diff HEAD~1 HEAD
+      - pwd && git diff HEAD~1 HEAD
     when:
       event: push
