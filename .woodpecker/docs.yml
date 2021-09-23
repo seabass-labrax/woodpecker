@@ -30,8 +30,10 @@ pipeline:
       - rsync -r --exclude .git --exclude CNAME --exclude index.yaml --exclude README.md --delete docs/build/ /repo
       - cd /repo
       - git add .
+      - git status
+      - ls -la
       # exit successfully if nothing changed
-      - test -n "$(git status --porcelain)" || echo "no change" && exit 0
+      - test -n "$(git status --porcelain)" || exit 0
       - git commit -m "Deploy website - based on ${DRONE_COMMIT_SHA}"
       - echo git push
       - pwd && git diff HEAD~1 HEAD
